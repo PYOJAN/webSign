@@ -1,0 +1,23 @@
+$action-h: 40px;
+$viewer-h: calc(100vh - $action-h);
+
+.pdf-action-btn {
+  @apply w-full shadow-md bg-slate-400 dark:bg-slate-700;
+  height: $action-h;
+  min-height: $action-h;
+}
+
+.viewer {
+  @apply overflow-auto relative w-full bg-slate-200 dark:bg-slate-900 px-3 py-2;
+  display: grid;
+  row-gap: 10px;
+  height: $viewer-h;
+  place-items: center;
+  .react-pdf__Document {
+    .react-pdf__Page {
+      &:not(:last-child) {
+        @apply mb-2;
+      }
+    }
+  }
+}

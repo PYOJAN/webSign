@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Variable
+$sidebar-width: 70px;
+$setting-width: 18rem;
+$viewer-width: calc(100% - ($sidebar-width + $setting-width));
+$md-viewer-width: calc(100% - $sidebar-width);
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box !important;
+  }
+
+  body {
+    @apply bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200 font-sans;
+
+    .main-body {
+      @apply bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200 h-screen max-h-screen max-w-7xl mx-auto border-x-[0.5px] border-slate-400 dark:border-slate-600 flex flex-row;
+    }
+  }
+}
+
+@layer components {
+  .w-sidebar {
+    width: $sidebar-width;
+  }
+  .w-setting {
+    width: $setting-width;
+    min-width: $setting-width;
+  }
+  .w-viewer {
+    width: $viewer-width;
+  }
+  .w-viewer-md {
+    width: $md-viewer-width;
+  }
+}

@@ -1,0 +1,60 @@
+.primary {
+  @apply inline-flex items-center justify-center gap-2 border-2 border-emerald-600 text-white transition duration-300 rounded whitespace-nowrap bg-emerald-500 active:bg-emerald-700 active:scale-95 hover:bg-emerald-600 focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-emerald-300 disabled:bg-emerald-300 disabled:shadow-none;
+  &.default {
+    @apply px-6 text-sm font-medium tracking-wide;
+  }
+  &.small {
+    @apply h-8 px-2 text-sm leading-3 font-semibold capitalize;
+  }
+}
+
+.link {
+  @apply inline-flex items-center justify-center underline underline-offset-2 tracking-wide transition duration-300 rounded focus-visible:outline-none justify-self-center whitespace-nowrap text-slate-600 hover:text-slate-400 active:text-sky-700;
+
+  &.small {
+    @apply h-6 px-2 text-sm;
+  }
+}
+
+.outline {
+  @apply inline-flex rounded-sm outline-none ring-2 ring-sky-800 text-sky-800 tracking-normal hover:ring-sky-700 hover:text-sky-700 active:ring-sky-500 active:text-sky-500 disabled:ring-gray-700 disabled:text-gray-700 disabled:cursor-not-allowed ease-linear duration-150;
+
+  &.default {
+    @apply px-2;
+  }
+
+  &.big {
+    @apply px-4 py-3 text-xl font-semibold;
+  }
+}
+
+
+.secondary {
+  @apply inline-flex items-center justify-center gap-2 text-white transition duration-300 rounded whitespace-nowrap active:scale-95 focus-visible:outline-none disabled:cursor-not-allowed disabled:shadow-none;
+  &.default {
+    @apply px-6 text-sm font-medium tracking-wide;
+  }
+  &.small {
+    @apply h-8 px-2 text-sm leading-3 font-semibold capitalize;
+  }
+}
+
+.link {
+  @apply inline-flex items-center justify-center underline underline-offset-2 tracking-wide transition duration-300 rounded focus-visible:outline-none justify-self-center whitespace-nowrap text-slate-600 hover:text-slate-400 active:text-sky-700;
+
+  &.small {
+    @apply h-6 px-2 text-sm;
+  }
+}
+
+.outline {
+  @apply inline-flex rounded-sm outline-none ring-2 ring-sky-800 text-sky-800 tracking-normal hover:ring-sky-700 hover:text-sky-700 active:ring-sky-500 active:text-sky-500 disabled:ring-gray-700 disabled:text-gray-700 disabled:cursor-not-allowed ease-linear duration-150;
+
+  &.default {
+    @apply px-2;
+  }
+
+  &.big {
+    @apply px-4 py-3 text-xl font-semibold;
+  }
+}

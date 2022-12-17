@@ -1,0 +1,11 @@
+.checkbox {
+  @apply flex flex-row justify-around items-center w-1/2 h-full relative text-sm uppercase bg-slate-800 rounded-md;
+
+  &::after {
+    content: "";
+    @apply absolute w-1/2 bg-rose-600 h-[95%] left-0 rounded-md scale-90 ease-linear duration-200;
+  }
+  &.checked::after {
+    @apply left-1/2 bg-emerald-600;
+  }
+}
