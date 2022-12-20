@@ -15,7 +15,6 @@ const Tabs = () => {
   };
 
   const handleCloseTab = (e) => {
-    console.log(e.target);
     if (e && e.stopPropagation) e.stopPropagation(); // Stope event propagation to parent element
     dispatch(closeTab({ id: e.target.dataset.pdf }));
   };
