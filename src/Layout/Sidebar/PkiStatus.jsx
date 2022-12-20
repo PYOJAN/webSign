@@ -1,5 +1,6 @@
 import React from "react";
-import { IoMdRefreshCircle, AiOutlineLink } from "../../assets";
+import { IoIcon } from "../../assets";
+import { AiIcon } from "../../assets";
 import { Tooltip } from "../../components";
 import { useState } from "react";
 
@@ -16,9 +17,9 @@ const PkiStatus = () => {
 
       <Tooltip label={connected ? "Connected" : "Connecting...."}>
         {connected ? (
-          <AiOutlineLink className="text-3xl cursor-pointer z-10 text-green-800 bg-green-500 rounded-full p-1" />
+          <AiIcon.AiOutlineLink className="text-3xl cursor-pointer z-10 text-green-800 bg-green-500 rounded-full p-1" />
         ) : (
-          <IoMdRefreshCircle className="text-3xl cursor-pointer z-10 text-rose-600 animate-spin" />
+          <IoIcon.IoMdRefreshCircle className="text-3xl cursor-pointer z-10 text-rose-600 animate-spin" />
         )}
       </Tooltip>
     </div>

@@ -49,6 +49,7 @@ const SignatureAppearance = () => {
             onChange={handleInput}
             placeholder={item.placeholder}
             value={signatureData.customText[item.name]}
+            className="h-full"
           />
         ))}
         <Button size="SMALL" variant="PRIMARY" className="mt-2">

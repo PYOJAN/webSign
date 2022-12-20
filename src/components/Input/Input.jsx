@@ -14,7 +14,7 @@ const InputField = ({
   const { className } = restProps;
   return (
     <div
-      className={`flex w-full relative h-8 overflow-hidden ${
+      className={`flex w-full items-center relative h-8 overflow-hidden ${
         isRounded ? "rounded-[4px]" : ""
       }`}
     >

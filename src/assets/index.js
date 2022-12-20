@@ -9,26 +9,8 @@ import downArrow from "./imgs/downArrow.svg";
 import greenTick from "./imgs/Green-Trick.svg";
 
 // React Icons
-import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill, BsZoomIn, BsZoomOut, BsThreeDotsVertical } from "react-icons/bs";
-import { IoIosArrowDropleftCircle, IoMdRefreshCircle,IoLogoGithub as Github } from "react-icons/io";
-import { AiOutlineLink, AiOutlineDownload } from "react-icons/ai";
+export * as BsIcon from "react-icons/bs";
+export * as IoIcon from "react-icons/io";
+export * as AiIcon from "react-icons/ai";
 
-export {
-  BrandLogo,
-  Gear,
-  Pen,
-  Add,
-  IoIosArrowDropleftCircle,
-  IoMdRefreshCircle,
-  AiOutlineLink,
-  Github,
-  downArrow,
-  eyeHide,
-  eyeShow,
-  greenTick,
-  BsFillArrowDownCircleFill,
-  BsFillArrowUpCircleFill,
-  BsZoomIn,
-  BsZoomOut,
-  BsThreeDotsVertical,AiOutlineDownload
-};
+export { BrandLogo, Gear, Pen, Add, downArrow, eyeHide, eyeShow, greenTick };

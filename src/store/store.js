@@ -2,7 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import signatureReducer from "./signatureSlice";
 import pkiApiReducer from "./pki.apiSlice";
 import uiControlReducer from "./uiControl.slice";
-import fileReducer from "./fileSlice";
 import fileArrayReducer from "./fileSliceArray";
 
 export const store = configureStore({
@@ -10,7 +9,6 @@ export const store = configureStore({
   reducer: {
     signature: signatureReducer,
     pkiApi: pkiApiReducer,
-    fileSlice: fileReducer,
     uiControl: uiControlReducer,
     fileArray: fileArrayReducer
   },

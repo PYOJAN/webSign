@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 
 const ActionContext = createContext();
 
@@ -53,6 +53,11 @@ const reducer = (state, actionTrigger) => {
         ...state,
         pageWidth: data.width,
       };
+    case pdfActions.CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: data.currentPage,
+      };
     default:
       return state;
   }
@@ -66,6 +71,32 @@ const PdfActionViewerProvider = ({ children }) => {
     </ActionContext.Provider>
   );
 };
+
+// =========================================================
+
+export const useIntersectionObserver = (
+  opt = { rootElement: null, margin: "10px", threshold: 1.0 }
+) => {
+  const [visible, setVisible] = useState(false);
+  const options = {
+    root: opt?.rootElement,
+    rootMargin: opt?.margin,
+    threshold: opt?.threshold,
+  };
+
+  const callbackFunction = (entries) => {
+    entries.forEach(entry => {
+      setVisible(entry.target.dataset.pageNumber)
+    })
+  };
+
+  const observerInstance = new IntersectionObserver(callbackFunction, options);
+
+  // const observer = (element) => observerInstance.observe(element);
+  return [visible, observerInstance];
+};
+
+// =========================================================
 
 export const usePdfViewerAction = () => useContext(ActionContext);
 

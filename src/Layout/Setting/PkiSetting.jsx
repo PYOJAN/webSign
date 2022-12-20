@@ -8,7 +8,7 @@ const inputs = [
     name: "protocol",
     isDisabled: true,
     placeholder: "http://",
-    className: "text-xs px-1 text-center overflow-hidden disabled:border-r-0",
+    className: "text-xs px-1 text-center overflow-hidden disabled:border-r-0 h-full",
     widthSize: "w-14",
   },
   {
@@ -16,14 +16,14 @@ const inputs = [
     isDisabled: false,
     placeholder: "127.0.0.1",
     widthSize: "flex-[2]",
-    className: "leading-4 px-2 rounded-r-0 border-l-0 border-r-[0.5px] flex-1",
+    className: "leading-4 px-2 rounded-r-0 border-l-0 border-r-[0.5px] flex-1 h-full",
   },
   {
     name: "port",
     isDisabled: false,
     placeholder: "1620",
     widthSize: "flex-1",
-    className: "px-1 text-center leading-4 w-14 rounded-r border-l-[0.5px] flex-1",
+    className: "px-1 text-center leading-4 w-14 rounded-r border-l-[0.5px] flex-1 h-full",
   },
 ];
 
@@ -43,7 +43,7 @@ const PkiSetting = ({ label }) => {
 
   return (
     <form className="flex flex-row items-end">
-      <InputGroup label={label} className="">
+      <InputGroup label={label} className="h-full">
         {inputs.map((item) => (
           <div key={item.name} className={item.widthSize}>
             <Input
