@@ -8,7 +8,7 @@ const initialState = {
   totalPages: 0,
   rotation: 0,
   currentPage: 1,
-  pageWidth: 600,
+  pageWidth: 700,
 };
 
 export const pdfActions = {
