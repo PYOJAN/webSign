@@ -1,4 +1,4 @@
-import { Input, InputGroup, Button } from "../../components";
+import { Input, InputGroup } from "../../components";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setValue } from "../../store/pki.apiSlice";
@@ -8,7 +8,8 @@ const inputs = [
     name: "protocol",
     isDisabled: true,
     placeholder: "http://",
-    className: "text-xs px-1 text-center overflow-hidden disabled:border-r-0 h-full",
+    className:
+      "text-xs px-1 text-center overflow-hidden disabled:border-r-0 h-full",
     widthSize: "w-14",
   },
   {
@@ -16,14 +17,16 @@ const inputs = [
     isDisabled: false,
     placeholder: "127.0.0.1",
     widthSize: "flex-[2]",
-    className: "leading-4 px-2 rounded-r-0 border-l-0 border-r-[0.5px] flex-1 h-full",
+    className:
+      "leading-4 px-2 rounded-r-0 border-l-0 border-r-[0.5px] flex-1 h-full",
   },
   {
     name: "port",
     isDisabled: false,
     placeholder: "1620",
     widthSize: "flex-1",
-    className: "px-1 text-center leading-4 w-14 rounded-r border-l-[0.5px] flex-1 h-full",
+    className:
+      "px-1 text-center leading-4 w-14 rounded-r border-l-[0.5px] flex-1 h-full",
   },
 ];
 
@@ -42,7 +45,10 @@ const PkiSetting = ({ label }) => {
   };
 
   return (
-    <form className="flex flex-row items-end">
+    <form
+      className="flex flex-row items-end"
+      onSubmit={(e) => e.preventDefault()}
+    >
       <InputGroup label={label} className="h-full">
         {inputs.map((item) => (
           <div key={item.name} className={item.widthSize}>
@@ -57,9 +63,6 @@ const PkiSetting = ({ label }) => {
           </div>
         ))}
       </InputGroup>
-      <Button size="SMALL" variant="PRIMARY" className="ml-2">
-        Save
-      </Button>
     </form>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Checkbox, InputField } from "../../components";
+import { Checkbox, InputField } from "../../components";
 import { checkbox, inputData } from "./data";
 import { Card } from "./Setting";
 
@@ -52,9 +52,9 @@ const SignatureAppearance = () => {
             className="h-full"
           />
         ))}
-        <Button size="SMALL" variant="PRIMARY" className="mt-2">
-          save Settings
-        </Button>
+        <p className="text-xs text-yellow-700/60 text-center">
+          Settings auto save when anything changed.
+        </p>
       </Card>
     </>
   );

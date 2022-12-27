@@ -5,10 +5,20 @@ import { Tooltip, Button } from "../../components";
 import SignatureAppearance from "./SignatureAppearance";
 import SignaturePreview from "./SignaturePreview";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { reset as pkiReset } from "../../store/pki.apiSlice";
+import { reset } from "../../store/signatureSlice";
 
 const Settings = () => {
   const { isSettingActive } = useSelector((preState) => preState.uiControl);
+  const dispatch = useDispatch();
+
+  // Resetting application setting as default
+  const handleReset = () => {
+    dispatch(pkiReset());
+    dispatch(reset());
+  };
+
   return (
     <div
       className={`setting overflow-hidden ${
@@ -22,7 +32,7 @@ const Settings = () => {
             size="SMALL"
             variant="LINK"
             className="p-0"
-            onClick={(e) => console.log(e)}
+            onClick={handleReset}
           >
             Reset
           </Button>

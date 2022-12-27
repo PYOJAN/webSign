@@ -1,22 +1,32 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { IoIcon } from "../../assets";
 import { AiIcon } from "../../assets";
 import { Tooltip } from "../../components";
-import { useState } from "react";
+import axios from "axios";
 
 const PkiStatus = () => {
-  const [connected, setConnected] = useState(false);
+  const [isPkiOnline, setIsPkiOnline] = useState(true);
+
+  useEffect(() => {
+    axios
+      .post("http://127.0.0.1:1620", {})
+      .then((data) => console.log(data))
+      .catch((err) => setIsPkiOnline(false));
+
+    // const interval = setInterval(() => {
+    //   axios
+    //     .post("http://127.0.0.1:1620", {})
+    //     .then((data) => console.log(data))
+    //     .catch((err) => console.log(err));
+    // }, 2000);
+
+    // return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="pki__status mt-auto flex justify-center items-center h-16 border-t border-slate-500 dark:border-slate-600 ">
-      <span
-        className={`block p-3 animate-ping absolute ${
-          connected ? "bg-green-600/50" : "bg-rose-600/50"
-        } rounded-full cursor-pointer`}
-      ></span>
-
-      <Tooltip label={connected ? "Connected" : "Connecting...."}>
-        {connected ? (
+      <Tooltip label={isPkiOnline ? "Connected" : "Connecting...."}>
+        {isPkiOnline ? (
           <AiIcon.AiOutlineLink className="text-3xl cursor-pointer z-10 text-green-800 bg-green-500 rounded-full p-1" />
         ) : (
           <IoIcon.IoMdRefreshCircle className="text-3xl cursor-pointer z-10 text-rose-600 animate-spin" />

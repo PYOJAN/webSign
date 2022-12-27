@@ -40,10 +40,16 @@ export const signatureSlice = createSlice({
         return state;
       }
     },
+    reset(state, action) {
+      return {
+        ...state,
+        ...initialState,
+      };
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { toggle, setCustomText } = signatureSlice.actions;
+export const { toggle, setCustomText, reset } = signatureSlice.actions;
 
 export default signatureSlice.reducer;

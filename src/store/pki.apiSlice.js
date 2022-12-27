@@ -16,10 +16,16 @@ export const pkiApiSlice = createSlice({
         [searchKey]: value,
       };
     },
+    reset(state, action) {
+      return {
+        ...state,
+        ...initialState,
+      };
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setValue } = pkiApiSlice.actions;
+export const { setValue, reset } = pkiApiSlice.actions;
 
 export default pkiApiSlice.reducer;
