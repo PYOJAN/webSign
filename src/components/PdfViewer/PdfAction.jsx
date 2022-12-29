@@ -1,11 +1,16 @@
-import { usePdfViewerAction, pdfActions } from "./PdfActionHook";
+import { pdfActions, usePdfViewerAction } from "./";
 import { Tooltip, Button, Input } from "../";
 
 import { BsIcon, AiIcon } from "../../assets";
+import { useMemo } from "react";
 
 export const PdfAction = () => {
   const [state, dispatch] = usePdfViewerAction();
-  const { totalPages, currentPage } = state;
+
+  const documentId = useMemo(
+    () => state.filter((doc) => doc.isActive)[0],
+    [state]
+  );
 
   return (
     <div className="w-full h-full flex justify-between">
@@ -17,7 +22,7 @@ export const PdfAction = () => {
         <div className="w-14 h-full inline-flex items-center">
           <Tooltip label="Current page" space={8}>
             <Input
-              value={currentPage}
+              value={documentId.currentPage}
               placeholder=""
               autoComplete="off"
               className="border-0 border-b-2 bg-slate-900 hover:bg-slate-800 w-6 h-6 text-center"
@@ -25,7 +30,7 @@ export const PdfAction = () => {
           </Tooltip>
           <Tooltip label="Total Pages" space={8}>
             <p className=" whitespace-nowrap text-slate-600 font-bold">
-              / <span>{totalPages}</span>
+              / <span>{documentId.totalPages}</span>
             </p>
           </Tooltip>
         </div>
@@ -37,14 +42,24 @@ export const PdfAction = () => {
       <div className="h-full flex flex-row items-center gap-2">
         <ActionButton
           tooltip="Zoom Out"
-          onClick={() => dispatch({ action: pdfActions.ZOOM_OUT })}
+          onClick={() =>
+            dispatch({
+              action: pdfActions.ZOOM_OUT,
+              data: { id: documentId.id },
+            })
+          }
         >
           <AiIcon.AiOutlineZoomOut />
         </ActionButton>
 
         <ActionButton
           tooltip="Zoom In"
-          onClick={() => dispatch({ action: pdfActions.ZOOM_IN })}
+          onClick={() =>
+            dispatch({
+              action: pdfActions.ZOOM_IN,
+              data: { id: documentId.id },
+            })
+          }
         >
           <AiIcon.AiOutlineZoomIn />
         </ActionButton>

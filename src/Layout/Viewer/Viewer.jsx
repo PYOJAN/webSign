@@ -1,19 +1,19 @@
 import { PdfViewer } from "../../components";
 import DragArea from "./DragArea";
 
-import { useSelector } from "react-redux";
+import { usePdfViewerAction } from "../../components/PdfViewer";
 
 import "./viewer.scss";
 import Tabs from "./Tabs";
 
 const Viewer = () => {
-  // Store
-  const fileData = useSelector((state) => state.fileArray);
+  const [selectedFiles, _] = usePdfViewerAction();
+  const filesData = selectedFiles;
 
   return (
     <DragArea>
       <Tabs />
-      {fileData.map((file, i) => (
+      {filesData.map((file, i) => (
         <PdfViewer key={`tab_number_${i}`} file={file} />
       ))}
     </DragArea>

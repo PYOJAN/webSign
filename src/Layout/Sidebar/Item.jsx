@@ -31,23 +31,29 @@ export const MenuItems = [
 import { useRef, useMemo } from "react";
 import { Pen, Add, Gear } from "../../assets";
 import { fileHandle } from "../../utils";
-import { errorNotify, warningNotify, PdfViewer } from "../../components";
+import { errorNotify, warningNotify } from "../../components";
 
-import { useDispatch, useSelector } from "react-redux";
-// import { setFileData } from "../../store/fileSlice";
-import { setFileDataArray } from "../../store/fileSliceArray";
+import { useDispatch } from "react-redux";
 import { toggle } from "../../store/uiControl.slice";
+import { pdfActions, usePdfViewerAction } from "../../components/PdfViewer";
 
 const Item = ({ item, activeBtn, setActiveBtn, ...restProps }) => {
   const dispatch = useDispatch();
   const inputElement = useRef();
-  // const fileData = useSelector((state) => state.fileSlice);
-  const fileData = useSelector((state) => state.fileArray);
+
+  const [selectedFiles, actionDispatch] = usePdfViewerAction();
+  const filesData = selectedFiles;
 
   // If signature applying btn is active
   const signatureActive = useMemo(
     () => (activeBtn === NAME.PEN ? true : false),
     [activeBtn]
+  );
+
+  // is file selected and it have base64 encoded data
+  const isBase64 = useMemo(
+    () => (filesData.length ? true : false),
+    [filesData]
   );
 
   // Handle menu item click
@@ -58,7 +64,7 @@ const Item = ({ item, activeBtn, setActiveBtn, ...restProps }) => {
         inputElement.current.click();
         break;
       case NAME.PEN:
-        if (!fileData?.base64) return warningNotify("First select file.");
+        if (!isBase64) return warningNotify("First select file.");
         setActiveBtn(menuName);
         break;
       case NAME.GEAR:
@@ -70,7 +76,8 @@ const Item = ({ item, activeBtn, setActiveBtn, ...restProps }) => {
 
   // On file changed
   const handleOnChange = async (e) => {
-    fileProcess(e, dispatch);
+    // fileProcess(e, dispatch);
+    fileProcess(e, actionDispatch);
   };
 
   const isFilePicker = item?.name === NAME.ADD;
@@ -117,8 +124,7 @@ export const fileProcess = async (e, dispatch) => {
     if (processedFile?.status === "ERROR")
       return errorNotify(processedFile?.message);
 
-    dispatch(setFileDataArray({ ...processedFile }));
-    // dispatch(setFileData({ ...processedFile }));
+    dispatch({ action: pdfActions.NEW_FILE_ADD, data: processedFile });
   } catch (err) {
     console.log(err);
     errorNotify("Unable to process file, please try again.");

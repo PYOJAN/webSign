@@ -2,7 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import signatureReducer from "./signatureSlice";
 import pkiApiReducer from "./pki.apiSlice";
 import uiControlReducer from "./uiControl.slice";
-import fileArrayReducer from "./fileSliceArray";
 
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
@@ -13,13 +12,11 @@ const reducers = combineReducers({
   signature: signatureReducer,
   pkiApi: pkiApiReducer,
   uiControl: uiControlReducer,
-  fileArray: fileArrayReducer,
 });
 
 const persistConfig = {
   key: "webSign",
   storage,
-  blacklist: ["fileArray"], // excluding files state from localStorage
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

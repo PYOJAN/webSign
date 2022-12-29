@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import { Button, errorNotify } from "../../components";
 import { fileHandle } from "../../utils";
-import { useDispatch } from "react-redux";
-import { setFileDataArray } from "../../store/fileSliceArray";
+import { pdfActions, usePdfViewerAction } from "../../components/PdfViewer";
 
 const WaterMark = ({ isDragging }) => {
   const fileInputRef = useRef();
-  const dispatch = useDispatch();
+
+  const [_, actionDispatch] = usePdfViewerAction();
 
   // Handling file from selection
   const handleChange = async (e) => {
@@ -14,12 +14,13 @@ const WaterMark = ({ isDragging }) => {
     if (file) {
       // Processing file and get base64 data or error
       const fileProcessedData = await fileHandle(e);
-
       // If error accrued
       if (fileProcessedData?.status)
         return errorNotify(fileProcessedData?.message);
-
-      dispatch(setFileDataArray(fileProcessedData));
+      actionDispatch({
+        action: pdfActions.NEW_FILE_ADD,
+        data: fileProcessedData,
+      });
     }
   };
 

@@ -1,13 +1,12 @@
 import { useState, useCallback, useEffect, useRef } from "react";
-import { usePdfViewerAction, pdfActions } from "./PdfActionHook";
+import { usePdfViewerAction } from "./PdfActionHook/PdfActionHook";
 
 import { Page } from "react-pdf";
 
-const PdfPage = ({ pageNumber, ...restProps }) => {
+const PdfPage = ({ pageNumber, scale, pageWidth, ...restProps }) => {
   const canvasRef = useRef();
   const [pageLoadedSuccessFull, setPageLoadedSuccessFull] = useState(false);
-  const [state, dispatch] = usePdfViewerAction();
-  const { scale, pageWidth } = state;
+  // const [state, dispatch] = usePdfViewerAction();
 
   const [isStart, setStart] = useState(false);
   const [pageData, setPageData] = useState(null);
@@ -21,10 +20,12 @@ const PdfPage = ({ pageNumber, ...restProps }) => {
   const onIntersectionChange = useCallback(
     ([entry]) => {
       if (entry.isIntersecting) {
-        dispatch({
-          action: pdfActions.CURRENTcanvas,
-          data: { currentPage: pageNumber },
-        });
+        // dispatch({
+        //   action: pdfActions.CURRENTcanvas,
+        //   data: { currentPage: pageNumber },
+        // });
+
+        // console.log(pageNumber);
       }
     },
     [pageNumber, canvasRef.current, scale, pageLoadedSuccessFull]

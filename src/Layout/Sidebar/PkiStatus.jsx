@@ -5,23 +5,8 @@ import { Tooltip } from "../../components";
 import axios from "axios";
 
 const PkiStatus = () => {
-  const [isPkiOnline, setIsPkiOnline] = useState(true);
+  const [isPkiOnline, setIsPkiOnline] = useState(false);
 
-  useEffect(() => {
-    axios
-      .post("http://127.0.0.1:1620", {})
-      .then((data) => console.log(data))
-      .catch((err) => setIsPkiOnline(false));
-
-    // const interval = setInterval(() => {
-    //   axios
-    //     .post("http://127.0.0.1:1620", {})
-    //     .then((data) => console.log(data))
-    //     .catch((err) => console.log(err));
-    // }, 2000);
-
-    // return () => clearInterval(interval);
-  }, []);
 
   return (
     <div className="pki__status mt-auto flex justify-center items-center h-16 border-t border-slate-500 dark:border-slate-600 ">
