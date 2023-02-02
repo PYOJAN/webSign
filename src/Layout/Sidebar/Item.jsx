@@ -37,7 +37,7 @@ import { useDispatch } from "react-redux";
 import { toggle } from "../../store/uiControl.slice";
 import { pdfActions, usePdfViewerAction } from "../../components/PdfViewer";
 
-const Item = ({ item, activeBtn, setActiveBtn, ...restProps }) => {
+const Item = ({ item, activeBtn, isConnected, setActiveBtn, ...restProps }) => {
   const dispatch = useDispatch();
   const inputElement = useRef();
 
@@ -65,6 +65,8 @@ const Item = ({ item, activeBtn, setActiveBtn, ...restProps }) => {
         break;
       case NAME.PEN:
         if (!isBase64) return warningNotify("First select file.");
+
+        if(!isConnected) return warningNotify("PKI Solution is not connected, Action not allowed.")
         setActiveBtn(menuName);
         break;
       case NAME.GEAR:

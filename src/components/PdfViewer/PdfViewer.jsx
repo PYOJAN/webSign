@@ -1,5 +1,5 @@
 // react-pdf library imports
-import { useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { pdfjs, Document } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = "/worker/worker.min.js"; // public/react-pdf/worker.min.js
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
@@ -24,40 +24,64 @@ const PdfViewer = ({ file }) => {
     });
   }
 
-  const BASE_64 = useMemo(() => file.base64, [file]);
+  function onPassword(callback, reason) {
+    console.log(reason);
+    function callbackProxy(password) {
+      // Cancel button handler
+      if (password === null) {
+        // Reset your `document` in `state`, un-mount your `<Document />`, show custom message, whatever
+        return console.log("user cancel");
+      }
+
+      callback(password);
+    }
+
+    switch (reason) {
+      case 1: {
+        const password = prompt("Enter the password to open this PDF file.");
+        callbackProxy(password);
+        break;
+      }
+      case 2: {
+        const password = prompt("Invalid password. Please try again.");
+        callbackProxy(password);
+        break;
+      }
+      default:
+    }
+  }
+
   return (
-    <>
-      {file.isActive ? (
-        <div className={`viewer`}>
-          <Document
-            file={BASE_64}
-            onLoadSuccess={onDocumentLoadSuccess}
-            // rotate={rotation}
-            onSourceError={(err) => console.log("error with file source" + err)}
-            onLoadError={(err) => console.log("onLoadError:-", err.message)}
-            noData={() => (
-              <h1 className="text-red-500">File data is not provided</h1>
-            )}
-            error={() => (
-              <strong className="text-rose-800">An error occurred!</strong>
-            )}
-            onPassword={(callback) =>
-              callback(prompt("enter PDF password:", ""))
-            }
-            externalLinkTarget="_blank"
-          >
-            {Array.from(new Array(totalPages), (_, index) => (
-              <PdfPage
-                key={`page_${index + 1}`}
-                pageNumber={index + 1}
-                scale={file.scale}
-                pageWidth={file.pageWidth}
-              />
-            ))}
-          </Document>
-        </div>
-      ) : null}
-    </>
+    <div
+      className={`viewer ${file.isActive ? "d-Grid" : "d-None"}`}
+      data-doc-id={file.id}
+    >
+      <Document
+        file={file.base64}
+        onLoadSuccess={onDocumentLoadSuccess}
+        // rotate={rotation}
+        onSourceError={(err) => console.log("error with file source" + err)}
+        onLoadError={(err) => console.log("onLoadError:-", err.message)}
+        noData={() => (
+          <h1 className="text-red-500">File data is not provided</h1>
+        )}
+        error={() => (
+          <strong className="text-rose-800">An error occurred!</strong>
+        )}
+        onPassword={onPassword}
+        externalLinkTarget="_blank"
+      >
+        {Array.from(new Array(totalPages), (_, index) => (
+          <PdfPage
+            key={`page_${index + 1}`}
+            pageNumber={index + 1}
+            scale={file.scale}
+            docId={file.id}
+            pageWidth={file.pageWidth}
+          />
+        ))}
+      </Document>
+    </div>
   );
 };
 

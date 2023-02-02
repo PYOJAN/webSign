@@ -15,7 +15,7 @@ export const pdfActions = {
 
   // Tabs
   CHANGE_TAB: "CHANGE_TAB",
-  CLOSE_TAB: "CLOSE_TAB"
+  CLOSE_TAB: "CLOSE_TAB",
 };
 
 export const defaultState = {

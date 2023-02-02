@@ -13,11 +13,15 @@ export const reducer = (state, actionTrigger) => {
   switch (action) {
     case pdfActions.ZOOM_IN:
       return state.map((doc) =>
-      doc.isActive ? { ...doc, scale: doc.scale + SCALE_RATIO } : doc
-    );
+        doc.isActive
+          ? { ...doc, scale: Number((doc.scale + SCALE_RATIO).toFixed(2)) }
+          : doc
+      );
     case pdfActions.ZOOM_OUT:
       return state.map((doc) =>
-        doc.isActive ? { ...doc, scale: doc.scale - SCALE_RATIO } : doc
+        doc.isActive
+          ? { ...doc, scale: Number((doc.scale - SCALE_RATIO).toFixed(2)) }
+          : doc
       );
     case pdfActions.TOTAL_PAGE:
       return totalPages(state, data);
@@ -25,10 +29,11 @@ export const reducer = (state, actionTrigger) => {
     case pdfActions.PAGE_WIDTH:
       return state;
     case pdfActions.CURRENT_PAGE:
-      return {
-        ...state,
-        currentPage: data.currentPage,
-      };
+      return state.map((document) =>
+        document.id === data.id
+          ? { ...document, currentPage: data.currentPage }
+          : document
+      );
     case pdfActions.NEW_FILE_ADD:
       const prevData = invisibleTab(state);
 

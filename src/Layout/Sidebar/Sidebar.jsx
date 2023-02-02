@@ -10,6 +10,7 @@ import "./sidebar.scss";
 
 const Sidebar = () => {
   const [activeBtn, setActiveBtn] = useState("");
+  const [isConnected, setIsConnected] = useState(true);
 
   return (
     <nav className={`sidebar__wrapper min-w-[80px] w-20 overflow-auto`}>
@@ -26,6 +27,7 @@ const Sidebar = () => {
             <Item
               item={item}
               activeBtn={activeBtn}
+              isConnected={isConnected}
               setActiveBtn={setActiveBtn}
             />
           </Tooltip>
@@ -33,7 +35,7 @@ const Sidebar = () => {
       </ul>
 
       {/* PKI status */}
-      <PkiStatus />
+      <PkiStatus onConnect={ setIsConnected } isConnected={isConnected} />
     </nav>
   );
 };

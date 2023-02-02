@@ -2,7 +2,13 @@ import { pdfActions, usePdfViewerAction } from "./";
 import { Tooltip, Button, Input } from "../";
 
 import { BsIcon, AiIcon } from "../../assets";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
+
+const PAGE_CHANGE_TYPE = {
+  PREVIOUS: "PREVIOUS",
+  NEXT: "NEXT",
+  CUSTOM: "CUSTOM",
+};
 
 export const PdfAction = () => {
   const [state, dispatch] = usePdfViewerAction();
@@ -12,29 +18,63 @@ export const PdfAction = () => {
     [state]
   );
 
+  const viewerScrollTo = useCallback(
+    (type, element = null) => {
+      const viewer = document.querySelector(`[data-doc-id]`);
+      const singlePageHeight = document.querySelector(
+        ".react-pdf__Page__canvas"
+      ).offsetHeight;
+
+      let scroll;
+
+      const TYPE = PAGE_CHANGE_TYPE[type];
+      switch (TYPE) {
+        case PAGE_CHANGE_TYPE.NEXT:
+          scroll = singlePageHeight * documentId.currentPage;
+          break;
+        case PAGE_CHANGE_TYPE.PREVIOUS:
+          scroll = viewer.scrollTop - singlePageHeight;
+          break;
+        default:
+          break;
+      }
+
+      viewer.scrollTo({
+        top: scroll,
+        behavior: "smooth",
+      });
+    },
+    [state]
+  );
+
   return (
     <div className="w-full h-full flex justify-between">
       {/* page next previous */}
       <div className="h-full flex flex-row items-center gap-2">
-        <ActionButton tooltip="Previous Page">
+        <ActionButton
+          tooltip="Previous Page"
+          onClick={() => viewerScrollTo(PAGE_CHANGE_TYPE.PREVIOUS)}
+        >
           <BsIcon.BsFillArrowLeftCircleFill />
         </ActionButton>
         <div className="w-14 h-full inline-flex items-center">
-          <Tooltip label="Current page" space={8}>
-            <Input
-              value={documentId.currentPage}
-              placeholder=""
-              autoComplete="off"
-              className="border-0 border-b-2 bg-slate-900 hover:bg-slate-800 w-6 h-6 text-center"
-            />
-          </Tooltip>
-          <Tooltip label="Total Pages" space={8}>
+          <Input
+            value={documentId.currentPage}
+            disabled={true}
+            placeholder=""
+            autoComplete="off"
+            className="border-0 border-b-2 bg-slate-900 hover:bg-slate-800 w-6 h-6 text-center"
+          />
+          <Tooltip label="Total Pages" space={8} placement="top">
             <p className=" whitespace-nowrap text-slate-600 font-bold">
               / <span>{documentId.totalPages}</span>
             </p>
           </Tooltip>
         </div>
-        <ActionButton tooltip="Next Page">
+        <ActionButton
+          tooltip="Next Page"
+          onClick={() => viewerScrollTo(PAGE_CHANGE_TYPE.NEXT)}
+        >
           <BsIcon.BsFillArrowRightCircleFill />
         </ActionButton>
       </div>
@@ -79,7 +119,7 @@ export const PdfAction = () => {
 
 const ActionButton = ({ tooltip, onClick, children }) => {
   return (
-    <Tooltip label={tooltip} space={8}>
+    <Tooltip label={tooltip} space={8} placement="top">
       <Button
         variant="SECONDARY"
         size="SMALL"
